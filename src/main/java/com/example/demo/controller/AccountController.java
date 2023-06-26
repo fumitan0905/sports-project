@@ -70,6 +70,6 @@ public class AccountController {
 		account.setId(id);
 		account.setName(name);
 
-		return "test";
+		return "index";
 	}
 }
