@@ -34,4 +34,5 @@ INSERT INTO performance(goals,asists,foul,fouled,yellowcard,redcard,games, playe
 INSERT INTO performance(goals,asists,foul,fouled,yellowcard,redcard,games, player_id) VALUES('9','2','2','13','1','0','20','12');
 INSERT INTO performance(goals,asists,foul,fouled,yellowcard,redcard,games, player_id) VALUES('15','3','2','7','2','1','34','13');
 
-
+-- コメントデータテーブル
+INSERT INTO comments(title, name, content, createdAt) VALUES('トレーニング','上野イチロー', '明日のトレーニング', '2022/02/02');

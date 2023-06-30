@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<h1>過去伝言メモ</h1>
+
+
+	<li th:each="i:${#numbers.sequence(comments.size()-1, 0, -1)}"
+	th:with="comment=${comments[i]}">
+		<p th:text="'名前：'+${comment.name}"></p>
+		<p th:text="${comment.createdAt}"></p>
+		<p th:text="${comment.title}"></p>
+		<p th:text="${comment.content}"></p>
+		<hr>
+	</li>
+</body>
+
+</html>
