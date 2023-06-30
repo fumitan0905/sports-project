@@ -7,37 +7,55 @@
 </head>
 
 <body>
-	<table>
-		<tr>
-			<th>得点数</th>
-			<td th:text="${playerPerformance.goals}"></td>
-		</tr>
-		<tr>
-			<th>アシスト数</th>
-			<td th:text="${playerPerformance.asists}"></td>
-		</tr>
-		<tr>
-			<th>ファウル数</th>
-			<td th:text="${playerPerformance.foul}"></td>
-		</tr>
-		<tr>
-			<th>被ファウル数</th>
-			<td th:text="${playerPerformance.fouled}"></td>
-		</tr>
-		<tr>
-			<th>イエローカード数</th>
-			<td th:text="${playerPerformance.yellowcard}"></td>
-		</tr>
-		<tr>
-			<th>レッドカード数</th>
-			<td th:text="${playerPerformance.redcard}"></td>
-		</tr>
-		<tr>
-			<th>試合数</th>
-			<td th:text="${playerPerformance.games}"></td>
-		</tr>
-		</tr>
-	</table>
+	<form th:action="'/admin/performance/'+${pp.id}+'/edit'" method="post">
+		<table border="2">
+			<tr>
+				<th>選手ID</th>
+				<td>[[${pp.id}]]</td>
+			</tr>
+			<tr>
+				<th>選手ID</th>
+				<td>[[${pp.playerId}]]</td>
+			</tr>
+			<tr>
+				<th>選手名</th>
+				<td th:text="${player.name}"></td>
+			</tr>
+			<tr>
+				<th>ポジション</th>
+				<td th:text="${player.position}"></td>
+			</tr>
+			<tr>
+				<th>得点数</th>
+				<td><input type="number" name="goals" th:value="${pp.goals}"></td>
+			</tr>
+			<tr>
+				<th>アシスト数</th>
+				<td><input type="number" name="asists" th:value="${pp.asists}"></td>
+			</tr>
+			<tr>
+				<th>ファウル数</th>
+				<td><input type="number" name="foul" th:value="${pp.foul}"></td>
+			</tr>
+			<tr>
+				<th>被ファウル数</th>
+				<td><input type="number" name="fouled" th:value="${pp.fouled}"></td>
+			</tr>
+			<tr>
+				<th>イエローカード数</th>
+				<td><input type="number" name="yellowcard" th:value="${pp.yellowcard}"></td>
+			</tr>
+			<tr>
+				<th>レッドカード数</th>
+				<td><input type="number" name="redcard" th:value="${pp.redcard}"></td>
+			</tr>
+			<tr>
+				<th>試合数</th>
+				<td><input type="number" name="games" th:value="${pp.games}"></td>
+			</tr>
+		</table>
+		<input type="submit" value="更新">
+	</form>
 </body>
 
 </html>

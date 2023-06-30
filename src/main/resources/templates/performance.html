@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8">
@@ -7,7 +7,7 @@
 </head>
 
 <body>
-	<table border="1">
+	<table border="1" align="left">
 		<tr>
 			<th>選手ID</th>
 			<th>背番号</th>
@@ -21,7 +21,7 @@
 		<tr th:each="p:${playerList}">
 			<td th:text="${p.id}"></td>
 			<td th:text="${p.playerId}"></td>
-			<td><a th:href="'/admin/performance/'+${p.id}" th:text="${p.name}"></a></td>
+			<td th:text="${p.name}"></a></td>
 			<td th:text="${p.height}"></td>
 			<td th:text="${p.weight}"></td>
 			<td th:text="${p.age}"></td>
@@ -29,6 +29,33 @@
 			<td th:text="${p.birthplace}"></td>
 		</tr>
 	</table>
+	<table border="1" align="left">
+		<tr>
+			<th>得点数</th>
+			<th>アシスト数</th>
+			<th>ファウル数</th>
+			<th>被ファウル数</th>
+			<th>イエローカード数</th>
+			<th>レッドカード数</th>
+			<th>試合数</th>
+			<th>更新</th>
+		</tr>
+		<tr th:each="pp:${playerPerformance}">
+			<td th:text="${pp.goals}"></td>
+			<td th:text="${pp.asists}"></td>
+			<td th:text="${pp.foul}"></td>
+			<td th:text="${pp.fouled}"></td>
+			<td th:text="${pp.yellowcard}"></td>
+			<td th:text="${pp.redcard}"></td>
+			<td th:text="${pp.games}"></td>
+			<td>
+				<form th:action="'/admin/performance/'+${pp.id}+'/edit'" method="get">
+					<input type="submit" value="更新">
+				</form>
+			</td>
+		</tr>
+	</table>
+	<tr>
 </body>
 
 </html>

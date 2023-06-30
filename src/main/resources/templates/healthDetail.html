@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<form th:action="'/admin/health/'+${player.id}+'/edit'"  method="post">
+	<table border="2">
+		<tr>
+			<th>選手名</th>
+			<td th:text="${player.name}"></td>
+		</tr>
+		<tr>
+			<th>身長</th>
+			<td th:text="${player.height}"></td>
+		</tr>
+		<tr>
+			<th>体重</th>
+			<td th:text="${player.weight}"></td>
+		</tr>
+		<tr>
+			<th>年齢</th>
+			<td th:text="${player.age}"></td>
+		</tr>
+		<tr>
+			<th>体脂肪率</th>
+			<td><input type="number" name="bodyFatPer" th:value="${player.bodyFatPer}">%</td>
+		</tr>
+		<tr>
+			<th>基礎代謝(オフの日)</th>
+			<td th:text="1.75*(28.5*(${player.weight}-(${player.weight}*(${player.bodyFatPer}/100))))+'(kcal)'"></td>
+		</tr>
+		<tr>
+			<th>基礎代謝(練習の日)</th>
+			<td th:text="2.19*(28.5*(${player.weight}-(${player.weight}*(${player.bodyFatPer}/100))))+'(kcal)'"></td>
+		</tr>
+	</table>
+	<input type="submit" value="更新">
+	</form>
+</body>
+
+</html>

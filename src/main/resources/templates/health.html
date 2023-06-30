@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<table border="1" align="left">
+		<tr>
+			<th>選手ID</th>
+			<th>選手名</th>
+			<th>身長</th>
+			<th>体重</th>
+			<th>年齢</th>
+			<th>体脂肪率</th>
+			<th>体脂肪量</th>
+			<th>徐脂肪体重</th>
+			<th>基礎代謝(オフの日)</th>
+			<th>基礎代謝(練習の日)</th>
+		</tr>
+		<tr th:each="p:${playerList}">
+			<td th:text="${p.id}"></td>
+			<td><a th:href="'/admin/health/'+${p.id}+'/edit'" th:text="${p.name}"></a></td>
+			<td th:text="${p.height}"></td>
+			<td th:text="${p.weight}"></td>
+			<td th:text="${p.age}"></td>
+			<td th:text="${p.bodyFatPer}+'%'"></td>
+			<td th:text="${p.weight}*(${p.bodyFatPer}/100)+'(kg)'"></td>
+			<td th:text="${p.weight}-(${p.weight}*(${p.bodyFatPer}/100))+'(kg)'"></td>
+			<td th:text="1.75*(28.5*(${p.weight}-(${p.weight}*(${p.bodyFatPer}/100))))+'(kcal)'"></td>
+			<td th:text="2.19*(28.5*(${p.weight}-(${p.weight}*(${p.bodyFatPer}/100))))+'(kcal)'"></td>
+		</tr>
+	</table>
+	
+	<h1>カレンダー</h1>
+	<h3>Current Date:[[${year}]]/[[${month + 1}]]</h3>
+	<table>
+		<tr>
+			<th>Sun</th>
+			<th>Mon</th>
+			<th>Tue</th>
+			<th>Wed</th>
+			<th>Thu</th>
+			<th>Fri</th>
+			<th>Sat</th>
+		</tr>
+		<tr th:each="row : ${rows}">
+			<td th:each="day : ${row}" th:text="${day}"></td>
+		</tr>
+	</table>
+	<div>
+		<a th:href="@{/admin/health?year=__${year - 1}__&amp;month=__${month}__}">&lt;&lt; Previous Month</a>
+        <a th:href="@{/admin/health?year=__${year}__&amp;month=__${month + 2}__}">Next Month &gt;&gt;</a>
+	</div>
+</body>
+
+</html>
