@@ -2,6 +2,8 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS players CASCADE;
 DROP TABLE IF EXISTS performance ;
+DROP TABLE IF EXISTS comments;
+
 -- カテゴリーテーブル
 CREATE TABLE users
 (
@@ -36,4 +38,14 @@ CREATE TABLE performance
    redcard INTEGER,
    games INTEGER,
    player_id INTEGER REFERENCES Players(id)
+);
+
+-- コメントテーブル
+CREATE TABLE comments
+(
+   id SERIAL PRIMARY KEY,
+   title TEXT,
+   name TEXT,
+   content TEXT,
+   createdAt TIMESTAMP
 );
