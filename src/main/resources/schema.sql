@@ -60,7 +60,9 @@ CREATE TABLE health
 	player_health_id INTEGER REFERENCES Players(id),
 	wakeup_time TIME,
 	bedtime_time TIME,
-	cooking_id INTEGER,
+	breakfast_id INTEGER,
+	lunch_id INTEGER,
+	dinner_id INTEGER,
 	eat_date DATE
 );
 

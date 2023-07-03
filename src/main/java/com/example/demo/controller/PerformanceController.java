@@ -26,7 +26,7 @@ public class PerformanceController {
 	@GetMapping("/admin/performance")
 	public String index(
 			Model m) {
-		List<Player> playerList = playerRepository.findAll();
+		List<Player> playerList = playerRepository.findByOrderById();
 		List<Performance> playerPerformance = performanceRepository.findByOrderByIdAsc();
 		m.addAttribute("playerPerformance", playerPerformance);
 		m.addAttribute("playerList", playerList);

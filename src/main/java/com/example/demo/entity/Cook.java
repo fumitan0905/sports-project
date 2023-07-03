@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,9 +16,11 @@ public class Cook {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(name = "dish_name")
+	private String dishName;
 
-	private String dish_name;
-
-	private Integer dish_calories;
+	@Column(name = "dish_calories")
+	private Integer dishCalories;
 
 }

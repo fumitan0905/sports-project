@@ -7,7 +7,7 @@
 </head>
 
 <body>
-	<table border="1" >
+	<table border="1">
 		<tr>
 			<th>選手ID</th>
 			<th>選手名</th>
@@ -34,29 +34,50 @@
 		</tr>
 		<br>
 	</table>
-	
-	<h1>カレンダー</h1>
-	<h3>Current Date:[[${year}]]/[[${month + 1}]]</h3>
-	<table border="2">
+	<h2>カレンダー</h2>
+	<h1>
+		<a th:href="|/admin/health?year=${lastYear}&month=${lastMonth}|">◀</a>
+		[[${year}]]年[[${month}]]月
+		<a th:href="|/admin/health?year=${nextYear}&month=${nextMonth}|">▶</a>
+	</h1>
+
+	<table>
 		<tr>
-			<th>Sun</th>
-			<th>Mon</th>
-			<th>Tue</th>
-			<th>Wed</th>
-			<th>Thu</th>
-			<th>Fri</th>
-			<th>Sat</th>
+			<th style="color: red;">日</th>
+			<th>月</th>
+			<th>火</th>
+			<th>水</th>
+			<th>木</th>
+			<th>金</th>
+			<th style="color:blue;">土</th>
 		</tr>
-		<tr th:each="row : ${rows}">
-			<td th:each="day : ${row}"><a th:href="|/admin/health?year=${year}&month=${month+1}&day=${day}|">
-				<div  th:text="${day}"></div>
-			</a></td>
+
+
+
+		<tr>
+			<th:block th:if="${week} > 0">
+				<td th:each="tmp : ${#numbers.sequence(0, week - 1)}"></td>
+			</th:block>
+
+			<td th:each="i : ${#numbers.sequence(1, 7 - week)}">
+				<a th:href="|/admin/health/information?year=${year}&month=${month}&day=${i}|">[[${i}]]</a><br>
+				<!--<th:block th:each="ymd : ${list}" th:if="${ymd} == |${year}-${month}-${i.toString().length() == 1 ? '0' + i : i}|">
+				●
+			</th:block>-->
+			</td>
 		</tr>
+		<th:block th:each="i, cell : ${#numbers.sequence(8 - week, max)}">
+			<th:block th:if="${cell.index % 7} == 0">
+				<tr>
+			</th:block>
+			<td>
+				<a th:href="|/admin/health/information?year=${year}&month=${month}&day=${i}|">[[${i}]]</a><br>
+				<!--<th:block th:each="ymd : ${list}" th:if="${ymd} == |${year}-${month}-${i.toString().length() == 1 ? '0' + i : i}|">
+				●
+			</th:block>-->
+			</td>
+		</th:block>
 	</table>
-	<div>
-		<a th:href="@{/admin/health?year=__${year}__&amp;month=__${month - 1}__}">&lt;&lt; Previous Month</a>
-        <a th:href="@{/admin/health?year=__${year}__&amp;month=__${month + 1}__}">Next Month &gt;&gt;</a>
-	</div>
 </body>
 
 </html>

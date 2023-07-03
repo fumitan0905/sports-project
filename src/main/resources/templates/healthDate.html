@@ -1,16 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
 </head>
+
 <body>
-<table border="1" align="left">	
-	<tr th:each="find:${finds}">
-		<td>[[${find.playerHealthId}]]	
-		</td>
-	</tr>
-	
-</table>
+	<h1>[[${year}]]年[[${month}]]月[[${day}]]日</h1>
+	<table border="1" align="left">
+
+		<tr>
+			<td>ID</td>
+			<td>名前</td>
+			<td>起床時間</td>
+			<td>就寝時間</td>
+			<td>朝食</td>
+			<td>接種カロリー</td>
+			<td>昼食</td>
+			<td>接種カロリー</td>
+			<td>夕食</td>
+			<td>接種カロリー</td>
+		</tr>
+		<tr th:each="find:${finds}">
+			<td>[[${find.playerHealthId}]]
+			</td>
+			<td th:each="player : ${playerList}" th:if="${player.id == find.playerHealthId}">[[${player.name}]]
+			</td>
+			<td>[[${find.wakeupTime}]]
+			</td>
+			<td>[[${find.bedtimeTime}]]
+			</td>
+			<td th:each="cook:${cookList}" th:if="${cook.id == find.breakfastId}">[[${cook.dishName}]]
+			</td>
+			<td th:each="cook:${cookList}" th:if="${cook.id == find.breakfastId}">[[${cook.dishCalories}]]
+			</td>
+			<td th:each="cook:${cookList}" th:if="${cook.id == find.lunchId}">[[${cook.dishName}]]
+			</td>
+			<td th:each="cook:${cookList}" th:if="${cook.id == find.lunchId}">[[${cook.dishCalories}]]
+			</td>
+			<td th:each="cook:${cookList}" th:if="${cook.id == find.dinnerId}">[[${cook.dishName}]]
+			</td>
+			<td th:each="cook:${cookList}" th:if="${cook.id == find.dinnerId}">[[${cook.dishCalories}]]
+			</td>
+			<td th:each="cook:${cookList}" th:if="${cook.id == find.breakfastId} ">[[${cook.dishCalories}]]
+			</td>
+		</tr>
+
+	</table>
 </body>
+
 </html>
