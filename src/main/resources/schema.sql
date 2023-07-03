@@ -58,10 +58,10 @@ CREATE TABLE health
 (
 	id SERIAL PRIMARY KEY,
 	player_health_id INTEGER REFERENCES Players(id),
-	wakeup_time TEXT,
-	bedtime_time TEXT,
+	wakeup_time TIME,
+	bedtime_time TIME,
 	cooking_id INTEGER,
-	eat_date TEXT
+	eat_date DATE
 );
 
 -- 料理テーブル

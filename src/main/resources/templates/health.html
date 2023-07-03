@@ -7,7 +7,7 @@
 </head>
 
 <body>
-	<table border="1" align="left">
+	<table border="1" >
 		<tr>
 			<th>選手ID</th>
 			<th>選手名</th>
@@ -32,11 +32,12 @@
 			<td th:text="1.75*(28.5*(${p.weight}-(${p.weight}*(${p.bodyFatPer}/100))))+'(kcal)'"></td>
 			<td th:text="2.19*(28.5*(${p.weight}-(${p.weight}*(${p.bodyFatPer}/100))))+'(kcal)'"></td>
 		</tr>
+		<br>
 	</table>
 	
 	<h1>カレンダー</h1>
 	<h3>Current Date:[[${year}]]/[[${month + 1}]]</h3>
-	<table>
+	<table border="2">
 		<tr>
 			<th>Sun</th>
 			<th>Mon</th>
@@ -47,12 +48,14 @@
 			<th>Sat</th>
 		</tr>
 		<tr th:each="row : ${rows}">
-			<td th:each="day : ${row}" th:text="${day}"></td>
+			<td th:each="day : ${row}"><a th:href="|/admin/health?year=${year}&month=${month+1}&day=${day}|">
+				<div  th:text="${day}"></div>
+			</a></td>
 		</tr>
 	</table>
 	<div>
-		<a th:href="@{/admin/health?year=__${year - 1}__&amp;month=__${month}__}">&lt;&lt; Previous Month</a>
-        <a th:href="@{/admin/health?year=__${year}__&amp;month=__${month + 2}__}">Next Month &gt;&gt;</a>
+		<a th:href="@{/admin/health?year=__${year}__&amp;month=__${month - 1}__}">&lt;&lt; Previous Month</a>
+        <a th:href="@{/admin/health?year=__${year}__&amp;month=__${month + 1}__}">Next Month &gt;&gt;</a>
 	</div>
 </body>
 

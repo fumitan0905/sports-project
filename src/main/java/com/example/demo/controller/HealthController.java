@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.entity.Health;
 import com.example.demo.entity.Player;
 import com.example.demo.repository.CookRepository;
 import com.example.demo.repository.HealthRepository;
@@ -34,20 +36,28 @@ public class HealthController {
 
 	@GetMapping("/admin/health")
 	public String index(
-//			@RequestParam(value = "year", required = false) Integer year,
-//			@RequestParam(value = "month", required = false) Integer month,
+			@RequestParam(value = "year", required = false) Integer year,
+			@RequestParam(value = "month", required = false) Integer month,
+			@RequestParam(value = "day", required = false) Integer day,
 			Model m) {
+		
 		List<Player> playerList = playerRepository.findAll();
 		m.addAttribute("playerList", playerList);
 
 		Calendar rightNow = Calendar.getInstance();
-		//if (year == null) {
-			int year = rightNow.get(Calendar.YEAR);
-		//}
-		//if (month == null) {
-			int month = rightNow.get(Calendar.MONTH);
-		//}
-		//int day = rightNow.get(Calendar.DATE);
+		if (year == null) {
+			year = rightNow.get(Calendar.YEAR);
+		}
+		if (month == null) {
+			month = rightNow.get(Calendar.MONTH);
+		}
+		if (year != null && month != null && day != null) {
+			
+			LocalDate search = LocalDate.of(year, month, day);
+			List<Health> finds =  healthRepository.findByEatDate(search);
+			m.addAttribute("finds",finds);
+			return "healthDate";
+		}
 
 		List<List<Integer>> rows = generateCalendarRows(year, month);
 		m.addAttribute("year", year);
