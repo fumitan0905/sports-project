@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,10 +24,10 @@ public class Health {
 	private Integer playerHealthId;
 
 	@Column(name = "wakeup_time")
-	private String wakeupTime;
+	private LocalTime wakeupTime;
 
 	@Column(name = "bedtime_time")
-	private String bedtimeTime;
+	private LocalTime bedtimeTime;
 
 	@Column(name = "breakfast_id")
 	private Integer breakfastId;
@@ -39,5 +40,21 @@ public class Health {
 
 	@Column(name = "eat_date")
 	private LocalDate eatDate;
+
+	public Health() {
+
+	}
+
+	public Health(Integer playerHealthId, LocalTime wakeupTime, LocalTime bedtimeTime, Integer breakfastId,
+			Integer lunchId, Integer dinnerId, LocalDate eatDate) {
+		this.playerHealthId = playerHealthId;
+		this.wakeupTime = wakeupTime;
+		this.bedtimeTime = bedtimeTime;
+		this.breakfastId = breakfastId;
+		this.lunchId = lunchId;
+		this.dinnerId = dinnerId;
+		this.eatDate = eatDate;
+
+	}
 
 }

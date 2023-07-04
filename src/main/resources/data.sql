@@ -38,19 +38,19 @@ INSERT INTO performance(goals,asists,foul,fouled,yellowcard,redcard,games, playe
 INSERT INTO comments(title, name, content, createdAt) VALUES('トレーニング','上野イチロー', '明日のトレーニング', '2022/02/02');
 
 -- 健康管理テーブル
-INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('1','07:30:00','22:00:00','1','4','2','2023-06-30');
-INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('2','07:30:00','22:00:00','2','1','1','2023-06-30');
-INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('3','07:30:00','22:00:00','1','1','4','2023-06-30');
-INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('4','07:30:00','22:00:00','2','1','1','2023-06-30');
-INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('5','07:30:00','22:00:00','4','1','1','2023-06-30');
-INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('6','07:30:00','22:00:00','1','1','3','2023-06-30');
-INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('7','07:30:00','22:00:00','1','2','1','2023-06-30');
-INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('8','07:30:00','22:00:00','2','1','1','2023-06-30');
-INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('9','07:30:00','22:00:00','3','3','1','2023-06-30');
-INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('10','07:30:00','22:00:00','4','1','1','2023-06-30');
-INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('11','07:30:00','22:00:00','1','1','2','2023-06-30');
-INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('12','07:30:00','22:00:00','1','1','2','2023-06-30');
-INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('13','07:30:00','22:00:00','1','3','4','2023-06-30');
+INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('1','07:30','22:00','1','4','2','2023-06-30');
+INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('2','07:30','22:00','2','1','1','2023-06-30');
+INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('3','07:30','22:00','1','1','4','2023-06-30');
+INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('4','07:30','22:00','2','1','1','2023-06-30');
+INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('5','07:30','22:00','4','1','1','2023-06-30');
+INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('6','07:30','22:00','1','1','3','2023-06-30');
+INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('7','07:30','22:00','1','2','1','2023-06-30');
+INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('8','07:30','22:00','2','1','1','2023-06-30');
+INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('9','07:30','22:00','3','3','1','2023-06-30');
+INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('10','07:30','22:00','4','1','1','2023-06-30');
+INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('11','07:30','22:00','1','1','2','2023-06-30');
+INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('12','07:30','22:00','1','1','2','2023-06-30');
+INSERT INTO health(player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date) VALUES('13','07:30','22:00','1','3','4','2023-06-30');
 
 -- 料理テーブル
 INSERT INTO cook(dish_name,dish_calories) VALUES('豚の生姜焼き','1500');

@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,16 +46,16 @@ public class HealthController {
 
 		LocalDate now = LocalDate.now();
 
-//		if (year != null && month != null && day != null) {
-//
-//			LocalDate search = LocalDate.of(year, month, day);
-//			List<Health> finds = healthRepository.findByEatDate(search);
-//			m.addAttribute("finds", finds);
-//			m.addAttribute("year", year);
-//			m.addAttribute("month", month);
-//			m.addAttribute("day", day);
-//			return "healthDate";
-//		}
+		//		if (year != null && month != null && day != null) {
+		//
+		//			LocalDate search = LocalDate.of(year, month, day);
+		//			List<Health> finds = healthRepository.findByEatDate(search);
+		//			m.addAttribute("finds", finds);
+		//			m.addAttribute("year", year);
+		//			m.addAttribute("month", month);
+		//			m.addAttribute("day", day);
+		//			return "healthDate";
+		//		}
 
 		year = year != null ? year : now.getYear();
 		month = month != null ? month : now.getMonthValue();
@@ -81,7 +83,39 @@ public class HealthController {
 
 		return "health";
 	}
-	
+
+	@PostMapping("/admin/health")
+	public String add(
+			Model m,
+			@RequestParam(value = "playerHealthId", defaultValue = "") Integer playerHealthId,
+			@RequestParam(value = "eatDate", defaultValue = "") LocalDate eatDate,
+			@RequestParam(value = "wakeupTime", defaultValue = "") LocalTime wakeupTime,
+			@RequestParam(value = "bedtimeTime", defaultValue = "") LocalTime bedtimeTime,
+			@RequestParam(value = "breakfastId", defaultValue = "") Integer breakfastId,
+			@RequestParam(value = "lunchId", defaultValue = "") Integer lunchId,
+			@RequestParam(value = "dinnerId", defaultValue = "") Integer dinnerId) {
+		List<String> error = new ArrayList<String>();
+		if (playerHealthId == null || eatDate == null || wakeupTime == null || bedtimeTime == null
+				|| breakfastId == null ||
+				lunchId == null || dinnerId == null) {
+
+			return "redirect:/admin/health";
+		}
+		List<Health> search = healthRepository.findByEatDate(eatDate);
+		if (search.isEmpty() == false) {
+			error.add("登録できません");
+
+		}
+		if (error.isEmpty() == true) {
+			m.addAttribute(error);
+			Health health = new Health(playerHealthId, wakeupTime, bedtimeTime, breakfastId, lunchId, dinnerId,
+					eatDate);
+			healthRepository.save(health);
+		}
+		return "redirect:/admin/health";
+
+	}
+
 	@GetMapping("/admin/health/information")
 	public String information(
 			@RequestParam(value = "year", required = false) Integer year,
@@ -91,10 +125,10 @@ public class HealthController {
 
 		List<Player> playerList = playerRepository.findByOrderById();
 		m.addAttribute("playerList", playerList);
-		
+
 		List<Cook> cookList = cookRepository.findAll();
-		m.addAttribute("cookList",cookList);
- 
+		m.addAttribute("cookList", cookList);
+
 		if (year != null && month != null && day != null) {
 
 			LocalDate search = LocalDate.of(year, month, day);
@@ -104,10 +138,9 @@ public class HealthController {
 			m.addAttribute("month", month);
 			m.addAttribute("day", day);
 		}
-		
+
 		return "healthDate";
 	}
-
 
 	//	private List<List<Integer>> generateCalendarRows(int year, int month) {
 	//		List<List<Integer>> rows = new ArrayList<>();

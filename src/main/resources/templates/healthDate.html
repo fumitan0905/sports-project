@@ -31,20 +31,24 @@
 			</td>
 			<td>[[${find.bedtimeTime}]]
 			</td>
-			<td th:each="cook:${cookList}" th:if="${cook.id == find.breakfastId}">[[${cook.dishName}]]
+			
+			<th:block th:each="cook:${cookList}">
+			<td th:if="${cook.id == find.breakfastId}">[[${cook.dishName}]]
 			</td>
-			<td th:each="cook:${cookList}" th:if="${cook.id == find.breakfastId}">[[${cook.dishCalories}]]
+			<td th:if="${cook.id == find.breakfastId}">[[${cook.dishCalories}]]
 			</td>
-			<td th:each="cook:${cookList}" th:if="${cook.id == find.lunchId}">[[${cook.dishName}]]
+			<td th:if="${cook.id == find.lunchId}">[[${cook.dishName}]]
 			</td>
-			<td th:each="cook:${cookList}" th:if="${cook.id == find.lunchId}">[[${cook.dishCalories}]]
+			<td th:if="${cook.id == find.lunchId}">[[${cook.dishCalories}]]
 			</td>
-			<td th:each="cook:${cookList}" th:if="${cook.id == find.dinnerId}">[[${cook.dishName}]]
+			<td th:if="${cook.id == find.dinnerId}">[[${cook.dishName}]]
 			</td>
-			<td th:each="cook:${cookList}" th:if="${cook.id == find.dinnerId}">[[${cook.dishCalories}]]
+			<td th:if="${cook.id == find.dinnerId}">[[${cook.dishCalories}]]
 			</td>
-			<td th:each="cook:${cookList}" th:if="${cook.id == find.breakfastId} ">[[${cook.dishCalories}]]
-			</td>
+			
+			
+
+			</th:block>
 		</tr>
 
 	</table>
