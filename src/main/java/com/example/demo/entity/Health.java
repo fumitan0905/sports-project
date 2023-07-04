@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Data
@@ -37,6 +38,24 @@ public class Health {
 
 	@Column(name = "dinner_id")
 	private Integer dinnerId;
+	
+	@Transient
+	private String breakfastName;
+	
+	@Transient
+	private Integer breakfastCalory;
+	
+	@Transient
+	private String lunchName;
+	
+	@Transient
+	private Integer lunchCalory;
+	
+	@Transient
+	private String dinnerName;
+	
+	@Transient
+	private Integer dinnerCalory;
 
 	@Column(name = "eat_date")
 	private LocalDate eatDate;
@@ -44,6 +63,7 @@ public class Health {
 	public Health() {
 
 	}
+
 
 	public Health(Integer playerHealthId, LocalTime wakeupTime, LocalTime bedtimeTime, Integer breakfastId,
 			Integer lunchId, Integer dinnerId, LocalDate eatDate) {

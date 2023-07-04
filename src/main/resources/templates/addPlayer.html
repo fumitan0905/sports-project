@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>選手登録</h1>
+	<form action="/admin/performance/add" method="post">
+		<input type="hidden" name="goals" value="0">
+		<input type="hidden" name="asists" value="0">
+		<input type="hidden" name="foul" value="0">
+		<input type="hidden" name="fouled" value="0">
+		<input type="hidden" name="yellowcard" value="0">
+		<input type="hidden" name="redcard" value="0">
+		<input type="hidden" name="games" value="0">
+		<table border="1">
+			<tr>
+				<th>背番号</th>
+				<td><input type="number" name="playerId"></td>
+			</tr>
+			<tr>
+				<th>名前</th>
+				<td><input type="text" name="name"></td>
+			</tr>
+			<tr>
+				<th>身長</th>
+				<td><input type="number" name="height"></td>
+			</tr>
+			<tr>
+				<th>体重</th>
+				<td><input type="number" name="weight"></td>
+			</tr>
+			<tr>
+				<th>年齢</th>
+				<td><input type="number" name="age"></td>
+			</tr>
+			<tr>
+				<th>ポジション</th>
+				<td><input type="text" name="position"></td>
+			</tr>
+			<tr>
+				<th>出身地</th>
+				<td><input type="text" name="birthplace"></td>
+			</tr>
+			<tr>
+				<th>体脂肪率</th>
+				<td><input type="text" name="bodyFatPer"></td>
+			</tr>
+		</table>
+			<input type="submit" value="登録">
+	</form>
+</body>
+</html>

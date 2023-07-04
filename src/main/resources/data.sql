@@ -5,19 +5,19 @@ INSERT INTO users(memberID, name, role,password) VALUES('3003', '杉野イズミ
 INSERT INTO users(memberID, name, role,password) VALUES('4004', '前野アサヒ', 4,'1234');
 
 --選手データテーブル
-INSERT INTO players(player_Id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('1','川島英二','185','75','28','GK','大阪','15');
-INSERT INTO players(player_Id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('2','楢崎正剛','190','86','34','GK','愛媛','12');
-INSERT INTO players(player_Id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('3','小笠原満男','176','72','33','DF','神奈川','12');
-INSERT INTO players(player_Id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('4','秋田豊','180','73','25','DF','北海道','11');
-INSERT INTO players(player_Id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('5','石川直宏','173','66','24','DF','京都','14');
-INSERT INTO players(player_Id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('6','長谷部誠','173','65','19','DF','東京','9');
-INSERT INTO players(player_Id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('7','中田浩二','170','62','29','DF','神奈川','17');
-INSERT INTO players(player_Id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('9','内田篤人','179','73','24','MF','大阪','15');
-INSERT INTO players(player_Id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('10','遠藤保仁','173','70','22','MF','新潟','16');
-INSERT INTO players(player_Id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('12','中田英寿','178','72','27','MF','埼玉','14');
-INSERT INTO players(player_Id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('15','小野信二','169','63','31','MF','埼玉','8');
-INSERT INTO players(player_Id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('17','本田啓介','181','80','20','MF','和歌山','10');
-INSERT INTO players(player_Id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('18','前田遼一','182','79','19','FW','福岡','12');
+INSERT INTO players(player_id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('1','川島英二','185','75','28','GK','大阪','15');
+INSERT INTO players(player_id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('2','楢崎正剛','190','86','34','GK','愛媛','12');
+INSERT INTO players(player_id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('3','小笠原満男','176','72','33','DF','神奈川','12');
+INSERT INTO players(player_id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('4','秋田豊','180','73','25','DF','北海道','11');
+INSERT INTO players(player_id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('5','石川直宏','173','66','24','DF','京都','14');
+INSERT INTO players(player_id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('6','長谷部誠','173','65','19','DF','東京','9');
+INSERT INTO players(player_id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('7','中田浩二','170','62','29','DF','神奈川','17');
+INSERT INTO players(player_id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('9','内田篤人','179','73','24','MF','大阪','15');
+INSERT INTO players(player_id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('10','遠藤保仁','173','70','22','MF','新潟','16');
+INSERT INTO players(player_id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('12','中田英寿','178','72','27','MF','埼玉','14');
+INSERT INTO players(player_id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('15','小野信二','169','63','31','MF','埼玉','8');
+INSERT INTO players(player_id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('17','本田啓介','181','80','20','MF','和歌山','10');
+INSERT INTO players(player_id,name,height,weight,age,position,birthplace,body_fat_per) VALUES('18','前田遼一','182','79','19','FW','福岡','12');
 
 --成績データテーブル
 INSERT INTO performance(goals,asists,foul,fouled,yellowcard,redcard,games, player_id) VALUES('0','1','2','5','1','1','30','1');

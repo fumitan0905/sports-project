@@ -10,6 +10,10 @@ import com.example.demo.entity.Health;
 
 public interface HealthRepository extends JpaRepository<Health, Integer> {
 	Optional<Health> findByPlayerHealthId(Integer playerHealthId);
-	
+
 	List<Health> findByEatDate(LocalDate eatDate);
+
+	Optional<Health> findByPlayerHealthIdAndEatDate(Integer playerHealthId, LocalDate eatDate);
+
+	Optional<Health> findByEatDateAndPlayerHealthId(LocalDate eatDate, Integer playerHealthId);
 }

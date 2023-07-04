@@ -38,7 +38,20 @@ public class Player {
 
 	}
 
-	public Player(Integer id, Integer playerId, String name, Integer height, Integer weight, Integer age,
+	public Player(Integer playerId, String name, Integer height, Integer weight, Integer age,
+			String position, String birthplace, Integer bodyFatPer) {
+		
+		this.playerId = playerId;
+		this.name = name;
+		this.height = height;
+		this.weight = weight;
+		this.age = age;
+		this.position = position;
+		this.birthplace = birthplace;
+		this.bodyFatPer = bodyFatPer;
+
+	}
+	public Player(Integer id ,Integer playerId, String name, Integer height, Integer weight, Integer age,
 			String position, String birthplace, Integer bodyFatPer) {
 		this.id = id;
 		this.playerId = playerId;

@@ -49,6 +49,15 @@ public class Performance {
 		this.redcard = redcard;
 		this.games = games;
 		this.playerId = playerId;
-
 	}
-}
+	public Performance(Integer goals, Integer asists, Integer foul, Integer fouled,
+			Integer yellowcard, Integer redcard, Integer games,Integer playerId) {
+		this.goals = goals;
+		this.asists = asists;
+		this.foul = foul;
+		this.fouled = fouled;
+		this.yellowcard = yellowcard;
+		this.redcard = redcard;
+		this.games = games;
+		this.playerId = playerId;
+}}

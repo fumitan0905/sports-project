@@ -19,7 +19,7 @@ CREATE TABLE users
 CREATE TABLE players
 (
    id SERIAL PRIMARY KEY,
-   player_Id INTEGER,
+   player_id INTEGER,
    name TEXT,
    height INTEGER,
    weight INTEGER,

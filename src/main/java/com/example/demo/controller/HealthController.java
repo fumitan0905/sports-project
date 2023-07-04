@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -45,17 +46,6 @@ public class HealthController {
 		m.addAttribute("playerList", playerList);
 
 		LocalDate now = LocalDate.now();
-
-		//		if (year != null && month != null && day != null) {
-		//
-		//			LocalDate search = LocalDate.of(year, month, day);
-		//			List<Health> finds = healthRepository.findByEatDate(search);
-		//			m.addAttribute("finds", finds);
-		//			m.addAttribute("year", year);
-		//			m.addAttribute("month", month);
-		//			m.addAttribute("day", day);
-		//			return "healthDate";
-		//		}
 
 		year = year != null ? year : now.getYear();
 		month = month != null ? month : now.getMonthValue();
@@ -99,9 +89,9 @@ public class HealthController {
 				|| breakfastId == null ||
 				lunchId == null || dinnerId == null) {
 
-			return "redirect:/admin/health";
+			return "healthDate";
 		}
-		List<Health> search = healthRepository.findByEatDate(eatDate);
+		Optional<Health> search = healthRepository.findByEatDateAndPlayerHealthId(eatDate, playerHealthId);
 		if (search.isEmpty() == false) {
 			error.add("登録できません");
 
@@ -112,7 +102,8 @@ public class HealthController {
 					eatDate);
 			healthRepository.save(health);
 		}
-		return "redirect:/admin/health";
+		return "redirect:/admin/health/information?year=" + eatDate.getYear() + "&month=" + eatDate.getMonthValue()
+				+ "&day=" + eatDate.getDayOfMonth();
 
 	}
 
@@ -133,35 +124,37 @@ public class HealthController {
 
 			LocalDate search = LocalDate.of(year, month, day);
 			List<Health> finds = healthRepository.findByEatDate(search);
+
+			for (Health h : finds) {
+				for (Cook cook : cookList) {
+					if (h.getBreakfastId() == cook.getId()) {
+						h.setBreakfastCalory(cook.getDishCalories());
+						h.setBreakfastName(cook.getDishName());
+
+					}
+					if (h.getLunchId() == cook.getId()) {
+						h.setLunchCalory(cook.getDishCalories());
+						h.setLunchName(cook.getDishName());
+
+					}
+					if (h.getDinnerId() == cook.getId()) {
+						h.setDinnerCalory(cook.getDishCalories());
+						h.setDinnerName(cook.getDishName());
+
+					}
+				}
+
+			}
+
 			m.addAttribute("finds", finds);
 			m.addAttribute("year", year);
 			m.addAttribute("month", month);
 			m.addAttribute("day", day);
+			m.addAttribute("search", search);
 		}
 
 		return "healthDate";
 	}
-
-	//	private List<List<Integer>> generateCalendarRows(int year, int month) {
-	//		List<List<Integer>> rows = new ArrayList<>();
-	//
-	//		YearMonth yearMonth = YearMonth.of(year, month + 1);
-	//		int numberOfDays = yearMonth.lengthOfMonth();
-	//
-	//		List<Integer> row = new ArrayList<>();
-	//		for (int day = 1; day <= numberOfDays; day++) {
-	//			row.add(day);
-	//			if (row.size() == 7) {
-	//				rows.add(row);
-	//				row = new ArrayList<>();
-	//			}
-	//		}
-	//		if (!row.isEmpty()) {
-	//			rows.add(row);
-	//		}
-	//
-	//		return rows;
-	//	}
 
 	@GetMapping("/admin/health/{id}/edit")
 	public String detail(
@@ -191,7 +184,18 @@ public class HealthController {
 			Model m) {
 		Player player = new Player(id, playerId, name, height, weight, age, position, birthplace, bodyFatPer);
 		playerRepository.save(player);
-		return "redirect:/admin/health";
+		return "redirect:/admin/health/";
+	}
+
+	@PostMapping("/admin/health/{playerHealthId}/delete")
+	public String delete(
+			@PathVariable("playerHealthId") Integer playerHealthId,
+			@RequestParam(value = "eatDate", defaultValue = "") LocalDate eatDate) {
+
+		Health a = healthRepository.findByPlayerHealthIdAndEatDate(playerHealthId, eatDate).get();
+		healthRepository.delete(a);
+		return "redirect:/admin/health/information?year=" + eatDate.getYear() + "&month=" + eatDate.getMonthValue()
+				+ "&day=" + eatDate.getDayOfMonth();
 	}
 
 }

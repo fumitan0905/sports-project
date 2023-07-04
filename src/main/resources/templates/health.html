@@ -7,42 +7,42 @@
 </head>
 
 <body>
-	<form action="/admin/health" method="post">
-		<table border="3">
-			<tr>
-				<th>ID</th>
-				<td><input type="number" name="playerHealthId"></td>
-				<td><input type="date" name="eatDate"></td>
-				<th>起床時間</th>
-				<td><input type="time" name="wakeupTime" value="08:00" min="00:00" max="12:00" step="1800"></td>
-				<th>就寝時間</th>
-				<td><input type="time" name="bedtimeTime" value="22:00" min="13:00" max="24:00" step="1800"></td>
-				<th>朝食</th>
-				<td><select name="breakfastId">
-						<option value="1">豚の生姜焼き</option>
-						<option value="2">ハンバーグ定食</option>
-						<option value="3">和風パスタ</option>
-						<option value="4">うな重</option>
-					</select></td>
-				<th>昼食</th>
-				<td><select name="lunchId">
-						<option value="1">豚の生姜焼き</option>
-						<option value="2">ハンバーグ定食</option>
-						<option value="3">和風パスタ</option>
-						<option value="4">うな重</option>
-					</select></td>
-				<th>夕食</th>
-				<td><select name="dinnerId">
-						<option value="1">豚の生姜焼き</option>
-						<option value="2">ハンバーグ定食</option>
-						<option value="3">和風パスタ</option>
-						<option value="4">うな重</option>
-					</select></td>
-		</table>
-		<input type="submit" value="登録">
-	</form>
+<!--	<form action="/admin/health" method="post">-->
+<!--		<table border="3">-->
+<!--			<tr>-->
+<!--				<th>ID</th>-->
+<!--				<td><input type="number" name="playerHealthId"></td>-->
+<!--				<td><input type="date" name="eatDate"></td>-->
+<!--				<th>起床時間</th>-->
+<!--				<td><input type="time" name="wakeupTime" value="08:00" min="00:00" max="12:00" step="1800"></td>-->
+<!--				<th>就寝時間</th>-->
+<!--				<td><input type="time" name="bedtimeTime" value="22:00" min="13:00" max="24:00" step="1800"></td>-->
+<!--				<th>朝食</th>-->
+<!--				<td><select name="breakfastId">-->
+<!--						<option value="1">豚の生姜焼き</option>-->
+<!--						<option value="2">ハンバーグ定食</option>-->
+<!--						<option value="3">和風パスタ</option>-->
+<!--						<option value="4">うな重</option>-->
+<!--					</select></td>-->
+<!--				<th>昼食</th>-->
+<!--				<td><select name="lunchId">-->
+<!--						<option value="1">豚の生姜焼き</option>-->
+<!--						<option value="2">ハンバーグ定食</option>-->
+<!--						<option value="3">和風パスタ</option>-->
+<!--						<option value="4">うな重</option>-->
+<!--					</select></td>-->
+<!--				<th>夕食</th>-->
+<!--				<td><select name="dinnerId">-->
+<!--						<option value="1">豚の生姜焼き</option>-->
+<!--						<option value="2">ハンバーグ定食</option>-->
+<!--						<option value="3">和風パスタ</option>-->
+<!--						<option value="4">うな重</option>-->
+<!--					</select></td>-->
+<!--		</table>-->
+<!--		<input type="submit" value="登録">-->
+<!--	</form>-->
 	<span th:text="${error}" style="color: red"></span>
-	<table border="1">
+	<table border="1" align="left">
 		<tr>
 			<th>選手ID</th>
 			<th>選手名</th>
@@ -50,8 +50,6 @@
 			<th>体重</th>
 			<th>年齢</th>
 			<th>体脂肪率</th>
-			<th>体脂肪量</th>
-			<th>徐脂肪体重</th>
 			<th>基礎代謝(オフの日)</th>
 			<th>基礎代謝(練習の日)</th>
 		</tr>
@@ -62,8 +60,6 @@
 			<td th:text="${p.weight}"></td>
 			<td th:text="${p.age}"></td>
 			<td th:text="${p.bodyFatPer}+'%'"></td>
-			<td th:text="${p.weight}*(${p.bodyFatPer}/100)+'(kg)'"></td>
-			<td th:text="${p.weight}-(${p.weight}*(${p.bodyFatPer}/100))+'(kg)'"></td>
 			<td th:text="1.75*(28.5*(${p.weight}-(${p.weight}*(${p.bodyFatPer}/100))))+'(kcal)'"></td>
 			<td th:text="2.19*(28.5*(${p.weight}-(${p.weight}*(${p.bodyFatPer}/100))))+'(kcal)'"></td>
 		</tr>

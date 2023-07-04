@@ -7,7 +7,8 @@
 </head>
 
 <body>
-	<table border="1" align="left">
+	<a href="/login">←戻る</a>
+	<table border="1">
 		<tr>
 			<th>選手ID</th>
 			<th>背番号</th>
@@ -26,55 +27,34 @@
 			<th>試合数</th>
 			<th>更新</th>
 		</tr>
-		<tr th:each="p:${playerList}">
-			<td th:text="${p.id}"></td>
-			<td th:text="${p.playerId}"></td>
-			<td th:text="${p.name}"></a></td>
-			<td th:text="${p.height}"></td>
-			<td th:text="${p.weight}"></td>
-			<td th:text="${p.age}"></td>
-			<td th:text="${p.position}"></td>
-			<td th:text="${p.birthplace}"></td>
-			<td th:each="pp:${playerPerformance}" th:if="${pp.id == p.id}">[[${pp.goals}]]</td>
-			<td th:each="pp:${playerPerformance}" th:if="${pp.id == p.id}">[[${pp.asists}]]</td>
-			<td th:each="pp:${playerPerformance}" th:if="${pp.id == p.id}">[[${pp.foul}]]</td>
-			<td th:each="pp:${playerPerformance}" th:if="${pp.id == p.id}">[[${pp.fouled}]]</td>
-			<td th:each="pp:${playerPerformance}" th:if="${pp.id == p.id}">[[${pp.yellowcard}]]</td>
-			<td th:each="pp:${playerPerformance}" th:if="${pp.id == p.id}">[[${pp.redcard}]]</td>
-			<td th:each="pp:${playerPerformance}" th:if="${pp.id == p.id}">[[${pp.games}]]</td>
+		<tr th:each="pp:${playerPerformance}">
+			<th:block th:each="p:${playerList}" th:if="${pp.playerId == p.id}">
+				<td th:text="${p.id}"></td>
+				<td th:text="${p.playerId}"></td>
+				<td th:text="${p.name}"></a></td>
+				<td th:text="${p.height}"></td>
+				<td th:text="${p.weight}"></td>
+				<td th:text="${p.age}"></td>
+				<td th:text="${p.position}"></td>
+				<td th:text="${p.birthplace}"></td>
+			</th:block>
+
+			<td>[[${pp.goals}]]</td>
+			<td>[[${pp.asists}]]</td>
+			<td>[[${pp.foul}]]</td>
+			<td>[[${pp.fouled}]]</td>
+			<td>[[${pp.yellowcard}]]</td>
+			<td>[[${pp.redcard}]]</td>
+			<td>[[${pp.games}]]</td>
 			<td>
-				<form th:action="'/admin/performance/'+${p.id}+'/edit'" method="get">
+				<form th:action="'/admin/performance/'+${pp.playerId}+'/edit'" method="get">
 					<input type="submit" value="更新">
 				</form>
 			</td>
 		</tr>
 	</table>
-<!--	<table border="1" align="left">-->
-<!--		<tr>-->
-<!--			<th>得点数</th>-->
-<!--			<th>アシスト数</th>-->
-<!--			<th>ファウル数</th>-->
-<!--			<th>被ファウル数</th>-->
-<!--			<th>イエローカード数</th>-->
-<!--			<th>レッドカード数</th>-->
-<!--			<th>試合数</th>-->
-<!--			<th>更新</th>-->
-<!--		</tr>-->
-<!--		<tr th:each="pp:${playerPerformance}">-->
-<!--			<td th:text="${pp.goals}"></td>-->
-<!--			<td th:text="${pp.asists}"></td>-->
-<!--			<td th:text="${pp.foul}"></td>-->
-<!--			<td th:text="${pp.fouled}"></td>-->
-<!--			<td th:text="${pp.yellowcard}"></td>-->
-<!--			<td th:text="${pp.redcard}"></td>-->
-<!--			<td th:text="${pp.games}"></td>-->
-<!--			<td>-->
-<!--				<form th:action="'/admin/performance/'+${pp.id}+'/edit'" method="get">-->
-<!--					<input type="submit" value="更新">-->
-<!--				</form>-->
-<!--			</td>-->
-<!--		</tr>-->
-<!--	</table>-->
+	<br>
+	<a href="/admin/performance/add">新規登録</a>
 	<tr>
 </body>
 
