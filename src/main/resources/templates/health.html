@@ -3,10 +3,11 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>選手健康管理</title>
 </head>
 
 <body>
+	<h2>選手健康管理</h2>
 <!--	<form action="/admin/health" method="post">-->
 <!--		<table border="3">-->
 <!--			<tr>-->
@@ -52,6 +53,7 @@
 			<th>体脂肪率</th>
 			<th>基礎代謝(オフの日)</th>
 			<th>基礎代謝(練習の日)</th>
+			<th>過去の健康データ</th>
 		</tr>
 		<tr th:each="p:${playerList}">
 			<td th:text="${p.id}"></td>
@@ -62,6 +64,7 @@
 			<td th:text="${p.bodyFatPer}+'%'"></td>
 			<td th:text="1.75*(28.5*(${p.weight}-(${p.weight}*(${p.bodyFatPer}/100))))+'(kcal)'"></td>
 			<td th:text="2.19*(28.5*(${p.weight}-(${p.weight}*(${p.bodyFatPer}/100))))+'(kcal)'"></td>
+			<td><a th:href="'/admin/health/'+${p.id}+'/detail'" >閲覧</a></td>
 		</tr>
 		<br>
 	</table>
@@ -92,9 +95,6 @@
 
 			<td th:each="i : ${#numbers.sequence(1, 7 - week)}">
 				<a th:href="|/admin/health/information?year=${year}&month=${month}&day=${i}|">[[${i}]]</a><br>
-				<!--<th:block th:each="ymd : ${list}" th:if="${ymd} == |${year}-${month}-${i.toString().length() == 1 ? '0' + i : i}|">
-				●
-			</th:block>-->
 			</td>
 		</tr>
 		<th:block th:each="i, cell : ${#numbers.sequence(8 - week, max)}">
@@ -103,9 +103,6 @@
 			</th:block>
 			<td>
 				<a th:href="|/admin/health/information?year=${year}&month=${month}&day=${i}|">[[${i}]]</a><br>
-				<!--<th:block th:each="ymd : ${list}" th:if="${ymd} == |${year}-${month}-${i.toString().length() == 1 ? '0' + i : i}|">
-				●
-			</th:block>-->
 			</td>
 		</th:block>
 	</table>

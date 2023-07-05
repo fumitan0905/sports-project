@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table border="1" align="left">
+
+		<tr>
+			<td>ID</td>
+			<td>名前</td>
+			<td>起床時間</td>
+			<td>就寝時間</td>
+			<!--			<td>朝食</td>-->
+			<td>摂取カロリー</td>
+			<!--			<td>昼食</td>-->
+			<td>摂取カロリー</td>
+			<!--			<td>夕食</td>-->
+			<td>摂取カロリー</td>
+			
+			<td>合計</td>
+			<td>推奨カロリー</td>
+			<td>過不足</td>
+			<th>削除</th>
+		</tr>
+		<tr th:each="find:${finds}">
+			<td>[[${find.playerHealthId}]]
+			</td>
+			<td>[[${playerList.name}]]
+			</td>
+			<td>[[${find.wakeupTime}]]
+			</td>
+			<td>[[${find.bedtimeTime}]]
+			</td>
+
+			<th:block>
+				<!--				<td>[[${find.breakfastName}]]</td>-->
+				<td>[[${find.breakfastCalory}]]</td>
+				<!--				<td>[[${find.lunchName}]]</td>-->
+				<td>[[${find.lunchCalory}]]</td>
+				<!--				<td>[[${find.dinnerName}]]</td>-->
+				<td>[[${find.dinnerCalory}]]</td>
+				
+				<td>
+					[[${find.breakfastCalory}+${find.lunchCalory}+${find.dinnerCalory}]]
+				</td>
+				<td th:if="${playerList.id == find.playerHealthId}">[[1.75*(28.5*(${p.weight}-(${p.weight}*(${p.bodyFatPer}/100))))]]</td>
+				<td th:if="${playerList.id == find.playerHealthId}">
+					[[(${find.breakfastCalory}+${find.lunchCalory}+${find.dinnerCalory})-(1.75*(28.5*(${p.weight}-(${p.weight}*(${p.bodyFatPer}/100)))))]]
+				</td>
+
+				<td>
+					<form th:action="'/admin/health/'+${find.playerHealthId}+'/delete'" method="post">
+						<input type="submit" value="削除">
+						<input type="hidden" name="eatDate" th:value="${find.eatDate}">
+					</form>
+				</td>
+			</th:block>
+		</tr>
+
+	</table>
+
+</body>
+</html>

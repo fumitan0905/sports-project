@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,24 +83,38 @@ public class HealthController {
 			@RequestParam(value = "breakfastId", defaultValue = "") Integer breakfastId,
 			@RequestParam(value = "lunchId", defaultValue = "") Integer lunchId,
 			@RequestParam(value = "dinnerId", defaultValue = "") Integer dinnerId) {
-		List<String> error = new ArrayList<String>();
-		if (playerHealthId == null || eatDate == null || wakeupTime == null || bedtimeTime == null
-				|| breakfastId == null ||
-				lunchId == null || dinnerId == null) {
-
-			return "healthDate";
+		List<Health> a =healthRepository.findAll();
+		System.out.println(a);
+		if (playerHealthId == null) {
+			return "redirect:/admin/health/information?year=" + eatDate.getYear() + "&month=" + eatDate.getMonthValue()
+					+ "&day=" + eatDate.getDayOfMonth() + "&error=1";
 		}
+		
+			if (playerHealthId >= a.size() || playerHealthId <= 0) {
+				return "redirect:/admin/health/information?year=" + eatDate.getYear() + "&month=" + eatDate.getMonthValue()
+						+ "&day=" + eatDate.getDayOfMonth() + "&error=3";
+			
+		}
+//		if (playerHealthId == null || eatDate == null || wakeupTime == null || bedtimeTime == null
+//				|| breakfastId == null ||
+//				lunchId == null || dinnerId == null) {
+//
+//			return "healthDate";
+//		}
+
 		Optional<Health> search = healthRepository.findByEatDateAndPlayerHealthId(eatDate, playerHealthId);
 		if (search.isEmpty() == false) {
-			error.add("登録できません");
+
+			return "redirect:/admin/health/information?year=" + eatDate.getYear() + "&month=" + eatDate.getMonthValue()
+					+ "&day=" + eatDate.getDayOfMonth() + "&error=2";// + "IDを入力してください";
 
 		}
-		if (error.isEmpty() == true) {
-			m.addAttribute(error);
-			Health health = new Health(playerHealthId, wakeupTime, bedtimeTime, breakfastId, lunchId, dinnerId,
-					eatDate);
-			healthRepository.save(health);
-		}
+
+		Health health = new Health(playerHealthId, wakeupTime, bedtimeTime, breakfastId, lunchId, dinnerId,
+				eatDate);
+		healthRepository.save(health);
+		m.addAttribute("playerHealthId",playerHealthId);
+
 		return "redirect:/admin/health/information?year=" + eatDate.getYear() + "&month=" + eatDate.getMonthValue()
 				+ "&day=" + eatDate.getDayOfMonth();
 
@@ -112,6 +125,7 @@ public class HealthController {
 			@RequestParam(value = "year", required = false) Integer year,
 			@RequestParam(value = "month", required = false) Integer month,
 			@RequestParam(value = "day", required = false) Integer day,
+			@RequestParam(value = "error", required = false) Integer error,
 			Model m) {
 
 		List<Player> playerList = playerRepository.findByOrderById();
@@ -123,7 +137,7 @@ public class HealthController {
 		if (year != null && month != null && day != null) {
 
 			LocalDate search = LocalDate.of(year, month, day);
-			List<Health> finds = healthRepository.findByEatDate(search);
+			List<Health> finds = healthRepository.findByEatDateOrderByIdAsc(search);
 
 			for (Health h : finds) {
 				for (Cook cook : cookList) {
@@ -146,10 +160,48 @@ public class HealthController {
 
 			}
 
+
+			LocalDate now = LocalDate.now();
+			
+			year = year != null ? year : now.getYear();
+			month = month != null ? month : now.getMonthValue();
+			day = day != null ? day : now.getDayOfMonth();
+
 			m.addAttribute("finds", finds);
 			m.addAttribute("year", year);
 			m.addAttribute("month", month);
 			m.addAttribute("day", day);
+			
+			LocalDate date = LocalDate.of(year, month, day);
+			
+			LocalDate yesterday = date.minusDays(1);
+			LocalDate tomorrow = date.plusDays(1);
+			
+			m.addAttribute("lastYear", yesterday.getYear());
+			m.addAttribute("lastMonth", yesterday.getMonthValue());
+			m.addAttribute("lastDay", yesterday.getDayOfMonth());
+			
+			m.addAttribute("nextYear", tomorrow.getYear());
+			m.addAttribute("nextMonth", tomorrow.getMonthValue());
+			m.addAttribute("nextDay", tomorrow.getDayOfMonth());
+
+
+			if (error != null) {
+				String msg = "";
+
+				switch (error) {
+				case 1:
+					msg = "IDを入力してください";
+					break;
+				case 2:
+					msg = "同じ日付に同じIDは入力できません";
+					break;
+				case 3:
+					msg = "IDが見つかりません";
+					break;
+				}
+				m.addAttribute("error", msg);
+			}
 			m.addAttribute("search", search);
 		}
 
@@ -184,7 +236,7 @@ public class HealthController {
 			Model m) {
 		Player player = new Player(id, playerId, name, height, weight, age, position, birthplace, bodyFatPer);
 		playerRepository.save(player);
-		return "redirect:/admin/health/";
+		return "redirect:/admin/health";
 	}
 
 	@PostMapping("/admin/health/{playerHealthId}/delete")
@@ -196,6 +248,46 @@ public class HealthController {
 		healthRepository.delete(a);
 		return "redirect:/admin/health/information?year=" + eatDate.getYear() + "&month=" + eatDate.getMonthValue()
 				+ "&day=" + eatDate.getDayOfMonth();
+	}
+	@GetMapping("/admin/health/{id}/detail")
+	public String details(
+			@PathVariable("id") Integer id,
+			Model m) {
+		if (id == null) {
+			return "health";
+		} else if (id != null) {
+			
+			Optional<Player> playerList = playerRepository.findById(id);
+			m.addAttribute("playerList", playerList);
+			List<Cook> cookList = cookRepository.findAll();
+			m.addAttribute("cookList", cookList);
+			List<Health> finds = healthRepository.findAllWhereId(id);
+			for (Health h : finds) {
+				for (Cook cook : cookList) {
+					if (h.getBreakfastId() == cook.getId()) {
+						h.setBreakfastCalory(cook.getDishCalories());
+						h.setBreakfastName(cook.getDishName());
+
+					}
+					if (h.getLunchId() == cook.getId()) {
+						h.setLunchCalory(cook.getDishCalories());
+						h.setLunchName(cook.getDishName());
+
+					}
+					if (h.getDinnerId() == cook.getId()) {
+						h.setDinnerCalory(cook.getDishCalories());
+						h.setDinnerName(cook.getDishName());
+
+					}
+				}
+
+			}
+
+			Player player = playerRepository.findById(id).get();
+			m.addAttribute("player", player);
+			m.addAttribute("finds", finds);
+		}
+		return "playerHealthDetail";
 	}
 
 }
