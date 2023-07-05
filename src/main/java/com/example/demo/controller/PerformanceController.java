@@ -25,11 +25,54 @@ public class PerformanceController {
 
 	@GetMapping("/admin/performance")
 	public String index(
+			@RequestParam(name="sort", required=false)Integer sort,
 			Model m) {
-		List<Player> playerList = playerRepository.findByOrderById();
-		List<Performance> playerPerformance = performanceRepository.findByOrderByIdAsc();
-		m.addAttribute("playerPerformance", playerPerformance);
-		m.addAttribute("playerList", playerList);
+		if (sort == null) {
+			List<Player> playerList = playerRepository.findByOrderById();
+			List<Performance> playerPerformance = performanceRepository.findByOrderByIdAsc();
+			m.addAttribute("playerPerformance", playerPerformance);
+			m.addAttribute("playerList", playerList);
+		}else if (sort == 1) {
+			List<Player> playerList = playerRepository.findByOrderById();
+			List<Performance> playerPerformance = performanceRepository.findByOrderByGoalsDesc();
+			m.addAttribute("playerPerformance", playerPerformance);
+			m.addAttribute("playerList", playerList);
+		}else if (sort==2) {
+			List<Player> playerList = playerRepository.findByOrderById();
+			List<Performance> playerPerformance = performanceRepository.findByOrderByAsistsDesc();
+			m.addAttribute("playerPerformance", playerPerformance);
+			m.addAttribute("playerList", playerList);
+		}else if (sort==3) {
+			List<Player> playerList = playerRepository.findByOrderById();
+			List<Performance> playerPerformance = performanceRepository.findByOrderByFoulDesc();
+			m.addAttribute("playerPerformance", playerPerformance);
+			m.addAttribute("playerList", playerList);
+		}else if (sort==4) {
+			List<Player> playerList = playerRepository.findByOrderById();
+			List<Performance> playerPerformance = performanceRepository.findByOrderByFouledDesc();
+			m.addAttribute("playerPerformance", playerPerformance);
+			m.addAttribute("playerList", playerList);
+		}else if (sort==5) {
+			List<Player> playerList = playerRepository.findByOrderById();
+			List<Performance> playerPerformance = performanceRepository.findByOrderByYellowcardDesc();
+			m.addAttribute("playerPerformance", playerPerformance);
+			m.addAttribute("playerList", playerList);
+		}else if (sort==6) {
+			List<Player> playerList = playerRepository.findByOrderById();
+			List<Performance> playerPerformance = performanceRepository.findByOrderByRedcardDesc();
+			m.addAttribute("playerPerformance", playerPerformance);
+			m.addAttribute("playerList", playerList);
+		}else if (sort==7) {
+			List<Player> playerList = playerRepository.findByOrderById();
+			List<Performance> playerPerformance = performanceRepository.findByOrderByGamesDesc();
+			m.addAttribute("playerPerformance", playerPerformance);
+			m.addAttribute("playerList", playerList);
+		}
+		
+//		List<Player> playerList = playerRepository.findByOrderById();
+//		List<Performance> playerPerformance = performanceRepository.findByOrderByIdAsc();
+//		m.addAttribute("playerPerformance", playerPerformance);
+//		m.addAttribute("playerList", playerList);
 		return "performance";
 	}
 
