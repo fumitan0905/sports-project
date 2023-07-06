@@ -27,31 +27,31 @@
 			</tr>
 			<tr>
 				<th>得点数</th>
-				<td><input type="number" name="goals" th:value="${pp.goals}"></td>
+				<td><input type="number" name="goals" th:value="${pp.goals}" min="0"></td>
 			</tr>
 			<tr>
 				<th>アシスト数</th>
-				<td><input type="number" name="asists" th:value="${pp.asists}"></td>
+				<td><input type="number" name="asists" th:value="${pp.asists}" min="0"></td>
 			</tr>
 			<tr>
 				<th>ファウル数</th>
-				<td><input type="number" name="foul" th:value="${pp.foul}"></td>
+				<td><input type="number" name="foul" th:value="${pp.foul}" min="0"></td>
 			</tr>
 			<tr>
 				<th>被ファウル数</th>
-				<td><input type="number" name="fouled" th:value="${pp.fouled}"></td>
+				<td><input type="number" name="fouled" th:value="${pp.fouled}" min="0"></td>
 			</tr>
 			<tr>
 				<th>イエローカード数</th>
-				<td><input type="number" name="yellowcard" th:value="${pp.yellowcard}"></td>
+				<td><input type="number" name="yellowcard" th:value="${pp.yellowcard}" min="0"></td>
 			</tr>
 			<tr>
 				<th>レッドカード数</th>
-				<td><input type="number" name="redcard" th:value="${pp.redcard}"></td>
+				<td><input type="number" name="redcard" th:value="${pp.redcard}" min="0"></td>
 			</tr>
 			<tr>
 				<th>試合数</th>
-				<td><input type="number" name="games" th:value="${pp.games}"></td>
+				<td><input type="number" name="games" th:value="${pp.games}" min="0"></td>
 			</tr>
 		</table>
 		<input type="submit" value="更新">

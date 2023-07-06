@@ -119,7 +119,20 @@ public class PerformanceController {
 	}
 
 	@GetMapping("/admin/performance/add")
-	public String addpage() {
+	public String addpage(
+			Model m,
+			@RequestParam(value = "error", defaultValue = "") Integer error
+			) {
+		if (error != null) {
+			String msg = "";
+
+			switch (error) {
+			case 1:
+				msg = "未入力項目があります";
+				break;
+				}
+			m.addAttribute("error",msg);
+		}
 		return "addPlayer";
 	}
 
@@ -141,6 +154,11 @@ public class PerformanceController {
 			@RequestParam(value = "redcard", defaultValue = "") Integer redcard,
 			@RequestParam(value = "games", defaultValue = "") Integer games,
 			Model m) {
+		if(playerId == null || name == null || height == null || weight == null ||
+				age == null || position == null || birthplace == null || bodyFatPer == null ) {
+			return "redirect:/admin/performance/add?error=1";
+			
+		}
 		Player player = new Player(playerId,name,height,weight,age,position,birthplace,bodyFatPer);
 		playerRepository.save(player);
 		Performance performance = new Performance(goals,asists,foul,fouled,yellowcard,redcard,games,player.getId());
