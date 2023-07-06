@@ -83,24 +83,25 @@ public class HealthController {
 			@RequestParam(value = "breakfastId", defaultValue = "") Integer breakfastId,
 			@RequestParam(value = "lunchId", defaultValue = "") Integer lunchId,
 			@RequestParam(value = "dinnerId", defaultValue = "") Integer dinnerId) {
-		List<Health> a =healthRepository.findAll();
+		List<Health> a = healthRepository.findAll();
 		System.out.println(a);
 		if (playerHealthId == null) {
 			return "redirect:/admin/health/information?year=" + eatDate.getYear() + "&month=" + eatDate.getMonthValue()
 					+ "&day=" + eatDate.getDayOfMonth() + "&error=1";
 		}
-		
-			if (playerHealthId >= a.size() || playerHealthId <= 0) {
-				return "redirect:/admin/health/information?year=" + eatDate.getYear() + "&month=" + eatDate.getMonthValue()
-						+ "&day=" + eatDate.getDayOfMonth() + "&error=3";
-			
+
+		if (playerHealthId <= 0) {
+			return "redirect:/admin/health/information?year=" + eatDate.getYear() + "&month=" + eatDate.getMonthValue()
+					+ "&day=" + eatDate.getDayOfMonth() + "&error=3";
+
 		}
-//		if (playerHealthId == null || eatDate == null || wakeupTime == null || bedtimeTime == null
-//				|| breakfastId == null ||
-//				lunchId == null || dinnerId == null) {
-//
-//			return "healthDate";
-//		}
+		
+		Optional<Player> b = playerRepository.findById(playerHealthId);
+		
+		if (b.isEmpty() == true) {
+			return "redirect:/admin/health/information?year=" + eatDate.getYear() + "&month=" + eatDate.getMonthValue()
+					+ "&day=" + eatDate.getDayOfMonth() + "&error=4";
+		}
 
 		Optional<Health> search = healthRepository.findByEatDateAndPlayerHealthId(eatDate, playerHealthId);
 		if (search.isEmpty() == false) {
@@ -113,7 +114,7 @@ public class HealthController {
 		Health health = new Health(playerHealthId, wakeupTime, bedtimeTime, breakfastId, lunchId, dinnerId,
 				eatDate);
 		healthRepository.save(health);
-		m.addAttribute("playerHealthId",playerHealthId);
+		m.addAttribute("playerHealthId", playerHealthId);
 
 		return "redirect:/admin/health/information?year=" + eatDate.getYear() + "&month=" + eatDate.getMonthValue()
 				+ "&day=" + eatDate.getDayOfMonth();
@@ -160,9 +161,8 @@ public class HealthController {
 
 			}
 
-
 			LocalDate now = LocalDate.now();
-			
+
 			year = year != null ? year : now.getYear();
 			month = month != null ? month : now.getMonthValue();
 			day = day != null ? day : now.getDayOfMonth();
@@ -171,20 +171,19 @@ public class HealthController {
 			m.addAttribute("year", year);
 			m.addAttribute("month", month);
 			m.addAttribute("day", day);
-			
+
 			LocalDate date = LocalDate.of(year, month, day);
-			
+
 			LocalDate yesterday = date.minusDays(1);
 			LocalDate tomorrow = date.plusDays(1);
-			
+
 			m.addAttribute("lastYear", yesterday.getYear());
 			m.addAttribute("lastMonth", yesterday.getMonthValue());
 			m.addAttribute("lastDay", yesterday.getDayOfMonth());
-			
+
 			m.addAttribute("nextYear", tomorrow.getYear());
 			m.addAttribute("nextMonth", tomorrow.getMonthValue());
 			m.addAttribute("nextDay", tomorrow.getDayOfMonth());
-
 
 			if (error != null) {
 				String msg = "";
@@ -197,6 +196,9 @@ public class HealthController {
 					msg = "同じ日付に同じIDは入力できません";
 					break;
 				case 3:
+					msg = "IDが見つかりません";
+					break;
+				case 4:
 					msg = "IDが見つかりません";
 					break;
 				}
@@ -249,19 +251,21 @@ public class HealthController {
 		return "redirect:/admin/health/information?year=" + eatDate.getYear() + "&month=" + eatDate.getMonthValue()
 				+ "&day=" + eatDate.getDayOfMonth();
 	}
+
 	@GetMapping("/admin/health/{id}/detail")
 	public String details(
+			@PathVariable("id") Integer playerHealthId,
 			@PathVariable("id") Integer id,
 			Model m) {
-		if (id == null) {
+		if (playerHealthId == null) {
 			return "health";
-		} else if (id != null) {
-			
+		} else if (playerHealthId != null) {
+
 			Optional<Player> playerList = playerRepository.findById(id);
 			m.addAttribute("playerList", playerList);
 			List<Cook> cookList = cookRepository.findAll();
 			m.addAttribute("cookList", cookList);
-			List<Health> finds = healthRepository.findAllWhereId(id);
+			List<Health> finds = healthRepository.findByPlayerHealthId(playerHealthId);
 			for (Health h : finds) {
 				for (Cook cook : cookList) {
 					if (h.getBreakfastId() == cook.getId()) {

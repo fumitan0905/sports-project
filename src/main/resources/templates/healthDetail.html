@@ -25,7 +25,7 @@
 			</tr>
 			<tr>
 				<th>体重</th>
-				<td><input type="number" name="weight" th:value="${player.weight}"></td>
+				<td><input type="number" name="weight" th:value="${player.weight}" min="40" max="100"></td>
 			</tr>
 			<tr>
 				<th>年齢</th>
@@ -33,7 +33,7 @@
 			</tr>
 			<tr>
 				<th>体脂肪率</th>
-				<td><input type="number" name="bodyFatPer" th:value="${player.bodyFatPer}">%</td>
+				<td><input type="number" name="bodyFatPer" th:value="${player.bodyFatPer}" min="1" max="30">%</td>
 			</tr>
 			<tr>
 				<th>基礎代謝(オフの日)</th>

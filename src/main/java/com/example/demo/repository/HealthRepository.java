@@ -10,7 +10,9 @@ import org.springframework.data.jpa.repository.Query;
 import com.example.demo.entity.Health;
 
 public interface HealthRepository extends JpaRepository<Health, Integer> {
-	Optional<Health> findByPlayerHealthId(Integer playerHealthId);
+	
+	
+	List<Health> findByPlayerHealthId(Integer playerHealthId);
 	
 	@Query(value = "SELECT id, player_health_id,wakeup_time,bedtime_time,breakfast_id,lunch_id,dinner_id,eat_date FROM health WHERE id >= ?1", nativeQuery = true)
 	List<Health> findAllWhereId(Integer Id);

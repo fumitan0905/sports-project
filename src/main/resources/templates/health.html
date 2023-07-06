@@ -62,8 +62,8 @@
 			<td th:text="${p.weight}"></td>
 			<td th:text="${p.age}"></td>
 			<td th:text="${p.bodyFatPer}+'%'"></td>
-			<td th:text="1.75*(28.5*(${p.weight}-(${p.weight}*(${p.bodyFatPer}/100))))+'(kcal)'"></td>
-			<td th:text="2.19*(28.5*(${p.weight}-(${p.weight}*(${p.bodyFatPer}/100))))+'(kcal)'"></td>
+			<td th:text="${#numbers.formatDecimal(1.75*(28.5*(p.weight-(p.weight*(p.bodyFatPer/100)))), 0, 1)}+'(kcal)'"></td>
+			<td th:text="${#numbers.formatDecimal(2.19*(28.5*(p.weight-(p.weight*(p.bodyFatPer/100)))), 0, 1)}+'(kcal)'"></td>
 			<td><a th:href="'/admin/health/'+${p.id}+'/detail'" >閲覧</a></td>
 		</tr>
 		<br>
